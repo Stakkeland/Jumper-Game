@@ -1,5 +1,5 @@
 
-Parachute={
+parachute={
 0:"""_ _ _ _ _ 
   ___     
  /___\    

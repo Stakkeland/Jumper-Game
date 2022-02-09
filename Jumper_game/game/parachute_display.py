@@ -2,7 +2,7 @@
 #and the score of the game or life count
 import random
 from rand_word import Word
-from parachutes import Parachute
+from parachutes import parachute
 
 
 class ParachuteMan:
@@ -35,7 +35,7 @@ class ParachuteMan:
 
     def show(self):
       """prints out the picture and uses the logic needed to change depending on the number of attemp count."""
-      print(Parachute[4 - self.attemp])
+      print(parachute[4 - self.attemp])
       print(self.reveal)
     def process(self):
       """This is the logic while trying to get the guessing game to work
@@ -65,7 +65,7 @@ class ParachuteMan:
           if self.attempt == 0:
               self.lose = True
           if self.lose == True:
-              print(Parachute[4])
+              print(parachute[4])
               print("You've lost")
               self.lost = False
               print(self.word)
