@@ -1,6 +1,6 @@
-from rand_word import Word
-from terminal_service import TerminalService
-from parachute_display import ParachuteMan
+from game.rand_word import Word
+from game.terminal_service import TerminalService
+from game.parachute_display import ParachuteMan
 
 class Director:
     """A person who directs the game. 
@@ -8,9 +8,9 @@ class Director:
     The responsibility of a Director is to control the sequence of play.
 
     Attributes:
-        hider (Hider): The game's hider.
+        random word: The word the user has to guess.
         is_playing (boolean): Whether or not to keep playing.
-        seeker (Seeker): The game's seeker.
+        parachute: The parachute man display.
         terminal_service: For getting and displaying information on the terminal.
     """
 
@@ -21,7 +21,7 @@ class Director:
             self (Director): an instance of Director.
         """
         self._word = Word()
-        self._is_playing = True
+        self._is_playing = 'yes'
         self._parachute = ParachuteMan()
         self._terminal_service = TerminalService()
         
@@ -31,35 +31,43 @@ class Director:
         Args:
             self (Director): an instance of Director.
         """
-        while self._is_playing:
+        while self._is_playing == 'yes':
             self._get_inputs()
             self._do_updates()
             self._do_outputs()
 
     def _get_inputs(self):
-        """Moves the seeker to a new location.
+        """gets the users guess.
 
         Args:
             self (Director): An instance of Director.
         """
-        new_letter = self._word.get_letter()
-        self._seeker.move_location(new_location)
+        self._word.get_letter()
         
     def _do_updates(self):
-        """Keeps watch on where the seeker is moving.
+        """Keeps count of the users guesses and decides if they are correct.
 
         Args:
             self (Director): An instance of Director.
         """
-        self._hider.watch_seeker(self._seeker)
+        self._parachute.check_word(self._word)
+        self._parachute.check_win(self._word)
+        
         
     def _do_outputs(self):
-        """Provides a hint for the seeker to use.
-
+        """Shows the user what they have guessed correctly and updates the parachute display.
+           If they have won or lost display a message and end the game.
         Args:
             self (Director): An instance of Director.
         """
-        hint = self._hider.get_hint()
-        self._terminal_service.write_text(hint)
-        if self._hider.is_found():
-            self._is_playing = False
+        self._parachute.show()
+        self._word.guess_lines()
+        if self._parachute.won == 'yes':
+            self._terminal_service.write_text("\nCongratulations you won!")
+            self._is_playing = 'no'
+            
+        elif self._parachute.lose == 'yes':
+            self._terminal_service.write_text("\nYou Lose!")
+            self._is_playing = 'no'
+
+
