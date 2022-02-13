@@ -62,11 +62,11 @@ class Director:
         """
         self._parachute.show()
         self._word.guess_lines()
-        if self._parachute.won == 'yes':
+        if self._parachute._won == 'yes':
             self._terminal_service.write_text("\nCongratulations you won!")
             self._is_playing = 'no'
             
-        elif self._parachute.lose == 'yes':
+        elif self._parachute._lose == 'yes':
             self._terminal_service.write_text("\nYou Lose!")
             self._is_playing = 'no'
 

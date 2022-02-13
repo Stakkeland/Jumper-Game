@@ -11,27 +11,27 @@ class ParachuteMan:
         self(jumper): An instance of jumper.
         """
     def __init__(self):
-        self.guess = ""
-        self.attempt = 0
-        self.won = 'no'
-        self.lose = 'no'
+        self._guess = ""
+        self._attempt = 0
+        self._won = 'no'
+        self._lose = 'no'
 
     def check_word(self, word):
         """Checks the random word to see is the letter guessed by the user is in the word."""
         if word.user_guess in word.word:
-                self.guess = 'correct'
+                self._guess = 'correct'
         else:
-            self.attempt += 1
-            self.guess = 'incorrect'
-            if self.attempt == 4:
-                self.lose = 'yes'
+            self._attempt += 1
+            self._guess = 'incorrect'
+            if self._attempt == 4:
+                self._lose = 'yes'
 
     def check_win(self, word):
         if word.word == word.blanks:
-            self.won = 'yes'
+            self._won = 'yes'
 
     def show(self):
         """prints out the picture and uses the logic needed to change depending on the number of attemp count."""
-        print(parachute[self.attempt])
-        print(f'That\'s {self.guess}!')
+        print(parachute[self._attempt])
+        print(f'That\'s {self._guess}!')
 
